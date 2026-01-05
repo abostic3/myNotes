@@ -1,9 +1,8 @@
 package com.consumer.notesapp
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.compose.ui.platform.ComposeView
 import androidx.recyclerview.widget.RecyclerView
 
 class NoteListAdapter(private val listener: (Note) -> Unit) : RecyclerView.Adapter<NoteListAdapter.VH>() {
@@ -11,21 +10,24 @@ class NoteListAdapter(private val listener: (Note) -> Unit) : RecyclerView.Adapt
     fun setItems(data: List<Note>) { items = data; notifyDataSetChanged() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val v = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_2, parent, false)
-        return VH(v)
+        val compose = ComposeView(parent.context)
+        val heightDp = 140
+        val heightPx = (parent.context.resources.displayMetrics.density * heightDp).toInt()
+        compose.layoutParams = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            heightPx
+        )
+        return VH(compose)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val n = items[position]
-        holder.title.text = n.title ?: "(no title)"
-        holder.sub.text = if (n.isSecret) "(secret)" else (n.content ?: "")
-        holder.itemView.setOnClickListener { listener(n) }
+        (holder.itemView as ComposeView).setContent {
+            NoteCard(n) { listener(n) }
+        }
     }
 
     override fun getItemCount(): Int = items.size
 
-    class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(android.R.id.text1)
-        val sub: TextView = itemView.findViewById(android.R.id.text2)
-    }
+    class VH(itemView: ComposeView) : RecyclerView.ViewHolder(itemView)
 }

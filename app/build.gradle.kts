@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.2.0"
 }
 
 android {
@@ -35,6 +36,10 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.6"
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -72,6 +77,14 @@ dependencies {
 
     // Security crypto for encrypted storage of secret notes
     implementation("androidx.security:security-crypto:1.1.0")
+
+    // Jetpack Compose
+    implementation(platform("androidx.compose:compose-bom:2024.10.00"))
+    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material:material")
+    debugImplementation("androidx.compose.ui:ui-tooling")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

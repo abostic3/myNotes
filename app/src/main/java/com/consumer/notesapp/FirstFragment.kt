@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.consumer.notesapp.databinding.FragmentFirstBinding
 
@@ -28,7 +28,7 @@ class FirstFragment : Fragment() {
             val b = Bundle().apply { putLong("noteId", note.id); putBoolean("isSecret", note.isSecret) }
             findNavController().navigate(R.id.SecondFragment, b)
         }
-        binding.recyclerNotes.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerNotes.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.recyclerNotes.adapter = adapter
 
         val showSecret = arguments?.getBoolean("showSecret", false) ?: false
