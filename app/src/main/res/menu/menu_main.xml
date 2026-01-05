@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.consumer.notesapp.MainActivity">
+
+    <item
+        android:id="@+id/action_new_note"
+        android:title="New Note"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_see_notes"
+        android:title="See Notes"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_see_secret_notes"
+        android:title="See Secret Notes"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>
